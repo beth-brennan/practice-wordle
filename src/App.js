@@ -8,6 +8,7 @@ function App() {
   const [lineArray, setLineArray] = useState(["current", "future", "future", "future", "future", "future"]);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState(["", "", "", "", ""]);
+  const [won, setWon] = useState(false);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -64,7 +65,9 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (currentGuess.join("").length === 5 && possibleAnswers.includes(currentGuess.join("").toLowerCase())) {
+    if (currentGuess.join("").length === 5
+      && (possibleAnswers.includes(currentGuess.join("").toLowerCase())
+      || allowedGuesses.includes(currentGuess.join("").toLowerCase()))) {
       const guess = [...currentGuess];
       let unusedLetters = word.split("");
 
@@ -90,10 +93,21 @@ function App() {
 
       if (currentGuess.join("") !== word) {
         newLineArray[currentIndex + 1] = "current";
+      } else {
+        setWon(true);
       }
 
       setLineArray(newLineArray);
     }
+  }
+
+  const handleClick = () => {
+    const randomIndex = Math.floor(Math.random() * possibleAnswers.length);
+    setWord(possibleAnswers[randomIndex].toUpperCase());
+    setLineArray(["current", "future", "future", "future", "future", "future"]);
+    setGuesses([]);
+    setCurrentGuess(["", "", "", "", ""]);
+    setWon(false);
   }
 
   useEffect(() => {
@@ -195,6 +209,11 @@ function App() {
           )
         }
       })}
+      {won && (
+        <button type='button' onClick={handleClick}>
+          Play Again!
+        </button>
+      )}
     </div>
   );
 }
