@@ -52,7 +52,11 @@ function App() {
         }
       })}
       {done && (
-        <button type='button' onClick={handleClick}>
+        <button
+          type='button'
+          onClick={handleClick}
+          id='replay-button'
+        >
           Play Again!
         </button>
       )}

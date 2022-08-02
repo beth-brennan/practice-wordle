@@ -86,3 +86,15 @@
 #submit-button {
   display: none;
 }
+
+#replay-button {
+  align-self: center;
+  text-align: center;
+  width: 200px;
+  height: 75px;
+  margin: 20px;
+  background-color: blueviolet;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
