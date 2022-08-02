@@ -8,7 +8,7 @@ function App() {
   const [lineArray, setLineArray] = useState(["current", "future", "future", "future", "future", "future"]);
   const [guesses, setGuesses] = useState([]);
   const [currentGuess, setCurrentGuess] = useState(["", "", "", "", ""]);
-  const [won, setWon] = useState(false);
+  const [done, setDone] = useState(false);
 
   const handleChange = (event) => {
     const { value, name } = event.target;
@@ -101,11 +101,11 @@ function App() {
       let currentIndex = newLineArray.indexOf("current");
       newLineArray[currentIndex] = "past";
 
-      if (currentGuess.join("") !== word) {
+      if (currentGuess.join("") !== word && currentIndex !== 5) {
         newLineArray[currentIndex + 1] = "current";
       } else {
-        setWon(true);
-      }
+        setDone(true);
+      };
 
       setLineArray(newLineArray);
     }
@@ -117,7 +117,7 @@ function App() {
     setLineArray(["current", "future", "future", "future", "future", "future"]);
     setGuesses([]);
     setCurrentGuess(["", "", "", "", ""]);
-    setWon(false);
+    setDone(false);
   }
 
   useEffect(() => {
@@ -219,7 +219,7 @@ function App() {
           )
         }
       })}
-      {won && (
+      {done && (
         <button type='button' onClick={handleClick}>
           Play Again!
         </button>
