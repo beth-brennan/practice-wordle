@@ -74,10 +74,9 @@ function App() {
   }, [])
 
   return (
-    <div>
+    <div id='container'>
       {lineArray.map((line, index) => {
-        console.log('word', word);
-        console.log('guesses', guesses);
+        console.log(word);
         if (line === "current") {
           return (
             <form key={index} onSubmit={handleSubmit}>
@@ -122,23 +121,33 @@ function App() {
           )
         } else if (line === "future") {
           return (
-            <div key={index}>
-              <span>1</span>
-              <span>2</span>
-              <span>3</span>
-              <span>4</span>
-              <span>5</span>
+            <div id='blank-rows' key={index}>
+              <span className='blank'>1</span>
+              <span className='blank'>2</span>
+              <span className='blank'>3</span>
+              <span className='blank'>4</span>
+              <span className='blank'>5</span>
             </div>
           )
         } else {
           const word = guesses[index];
           return (
-            <div key={index}>
-              <span className={word[0]["type"]}>{word[0]["letter"]}</span>
-              <span className={word[1]["type"]}>{word[1]["letter"]}</span>
-              <span className={word[2]["type"]}>{word[2]["letter"]}</span>
-              <span className={word[3]["type"]}>{word[3]["letter"]}</span>
-              <span className={word[4]["type"]}>{word[4]["letter"]}</span>
+            <div id='answer-rows' key={index}>
+              <span className={word[0]["type"]}>
+                {word[0]["letter"]}
+              </span>
+              <span className={word[1]["type"]}>
+                {word[1]["letter"]}
+              </span>
+              <span className={word[2]["type"]}>
+                {word[2]["letter"]}
+              </span>
+              <span className={word[3]["type"]}>
+                {word[3]["letter"]}
+              </span>
+              <span className={word[4]["type"]}>
+                {word[4]["letter"]}
+              </span>
             </div>
           )
         }
