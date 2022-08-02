@@ -40,7 +40,6 @@ function App() {
   }
 
   const handleKeyDown = (event) => {
-    console.log("keydown pressed")
     const { name, value } = event.target;
     const [fieldName, fieldIndex] = name.split("-");
 
@@ -71,18 +70,29 @@ function App() {
       const guess = [...currentGuess];
       let unusedLetters = word.split("");
 
-      const results = guess.map((letter, index) => {
+      const greenAndGray = guess.map((letter, index) => {
         if (!word.includes(letter)) {
           return {letter, type: "gray"};
         } else if (letter === word[index]) {
           unusedLetters.splice(unusedLetters.indexOf(letter), 1);
           return {letter, type: "green"};
-        } else if (word.includes(letter) && unusedLetters.includes(letter)) {
-          return {letter, type: "yellow"};
         } else {
-          return {letter, type: "gray"};
+          return {letter, type: "pending"};
         }
       });
+
+      const results = greenAndGray.map(guess => {
+        if (guess.type === "pending") {
+          if (word.includes(guess.letter) && unusedLetters.includes(guess.letter)) {
+            unusedLetters.splice(unusedLetters.indexOf(guess.letter), 1);
+            return {letter: guess.letter, type: "yellow"};
+          } else {
+            return {letter: guess.letter, type: "gray"}
+          }
+        } else {
+          return guess;
+        }
+      })
 
       setGuesses([...guesses, results]);
       setCurrentGuess(["", "", "", "", ""]);
