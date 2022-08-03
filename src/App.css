@@ -21,7 +21,7 @@
   height: 50px;
   background-color: green;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 10px;
   font-size: 40px;
   font-weight: bold;
@@ -36,7 +36,7 @@
   height: 50px;
   background-color: gray;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 10px;
   font-size: 40px;
   font-weight: bold;
@@ -51,7 +51,7 @@
   height: 50px;
   background-color: goldenrod;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 10px;
   font-size: 40px;
   font-weight: bold;
@@ -63,7 +63,7 @@
   height: 50px;
   background-color: white;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 10px;
 }
 
@@ -76,11 +76,15 @@
   height: 50px;
   background-color: white;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
   margin: 10px;
   caret-color: transparent;
   font-size: 40px;
   font-weight: bold;
+}
+
+.input:focus {
+  outline: none;
 }
 
 #submit-button {
@@ -97,4 +101,8 @@
   color: white;
   font-weight: bold;
   font-size: 30px;
+}
+
+.invalid {
+  border: 2px solid red;
 }

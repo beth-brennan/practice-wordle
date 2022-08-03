@@ -7,26 +7,28 @@ function Current(props) {
     const { value, name } = event.target;
     const [fieldName, fieldIndex] = name.split("-");
 
-    let guess = [...props.currentGuess];
-    guess[fieldIndex] = value.toUpperCase();
-    props.setCurrentGuess(guess);
+    if (value.toLowerCase() !== value.toUpperCase() || value === "") {
+      let guess = [...props.currentGuess];
+      guess[fieldIndex] = value.toUpperCase();
+      props.setCurrentGuess(guess);
 
-    if (value.length === 1) {
-      if (parseInt(fieldIndex, 10) < 4) {
-        const nextEntry = document.querySelector(
-          `input[name=letter-${parseInt(fieldIndex, 10) + 1}]`
-        );
-        if (nextEntry !== null) {
-          nextEntry.focus();
+      if (value.length === 1) {
+        if (parseInt(fieldIndex, 10) < 4) {
+          const nextEntry = document.querySelector(
+            `input[name=letter-${parseInt(fieldIndex, 10) + 1}]`
+          );
+          if (nextEntry !== null) {
+            nextEntry.focus();
+          }
         }
-      }
-    } else {
-      if (parseInt(fieldIndex, 10) > 0) {
-        const lastEntry = document.querySelector(
-          `input[name=letter-${parseInt(fieldIndex, 10) - 1}]`
-        );
-        if (lastEntry !== null) {
-          lastEntry.focus();
+      } else {
+        if (parseInt(fieldIndex, 10) > 0) {
+          const lastEntry = document.querySelector(
+            `input[name=letter-${parseInt(fieldIndex, 10) - 1}]`
+          );
+          if (lastEntry !== null) {
+            lastEntry.focus();
+          }
         }
       }
     }
@@ -36,21 +38,19 @@ function Current(props) {
     const { name, value } = event.target;
     const [fieldName, fieldIndex] = name.split("-");
 
-    if (event.key === 'Backspace') {
-      if (value === "") {
-        const lastEntry = document.querySelector(
-          `input[name=letter-${parseInt(fieldIndex, 10) - 1}]`
-        );
-        if (lastEntry !== null) {
-          lastEntry.focus();
-        }
-      } else {
-        const nextEntry = document.querySelector(
-          `input[name=letter-${parseInt(fieldIndex, 10) + 1}]`
-        );
-        if (nextEntry !== null) {
-          nextEntry.focus();
-        }
+    if (event.key === 'Backspace' && value === "") {
+      const lastEntry = document.querySelector(
+        `input[name=letter-${parseInt(fieldIndex, 10) - 1}]`
+      );
+      if (lastEntry !== null) {
+        lastEntry.focus();
+      }
+    } else if (event.key !== 'Backspace' && value !== "") {
+      const nextEntry = document.querySelector(
+        `input[name=letter-${parseInt(fieldIndex, 10) + 1}]`
+      );
+      if (nextEntry !== null) {
+        nextEntry.focus();
       }
     }
   }
@@ -107,7 +107,10 @@ function Current(props) {
   return (
     <form onSubmit={handleSubmit} className="rows">
       <input
-        className='input'
+        className={props.currentGuess.join("").length === 5
+        && !possibleAnswers.includes(props.currentGuess.join("").toLowerCase())
+        && !allowedGuesses.includes(props.currentGuess.join("").toLowerCase())
+        ? "input invalid" : "input"}
         type="text"
         name="letter-0"
         minLength={1}
@@ -118,7 +121,10 @@ function Current(props) {
         value={props.currentGuess[0]}
       />
       <input
-        className='input'
+        className={props.currentGuess.join("").length === 5
+        && !possibleAnswers.includes(props.currentGuess.join("").toLowerCase())
+        && !allowedGuesses.includes(props.currentGuess.join("").toLowerCase())
+        ? "input invalid" : "input"}
         type="text"
         name="letter-1"
         minLength={1}
@@ -128,7 +134,10 @@ function Current(props) {
         value={props.currentGuess[1]}
       />
       <input
-        className='input'
+        className={props.currentGuess.join("").length === 5
+        && !possibleAnswers.includes(props.currentGuess.join("").toLowerCase())
+        && !allowedGuesses.includes(props.currentGuess.join("").toLowerCase())
+        ? "input invalid" : "input"}
         type="text"
         name="letter-2"
         minLength={1}
@@ -138,7 +147,10 @@ function Current(props) {
         value={props.currentGuess[2]}
       />
       <input
-        className='input'
+        className={props.currentGuess.join("").length === 5
+        && !possibleAnswers.includes(props.currentGuess.join("").toLowerCase())
+        && !allowedGuesses.includes(props.currentGuess.join("").toLowerCase())
+        ? "input invalid" : "input"}
         type="text"
         name="letter-3"
         minLength={1}
@@ -148,7 +160,10 @@ function Current(props) {
         value={props.currentGuess[3]}
       />
       <input
-        className='input'
+        className={props.currentGuess.join("").length === 5
+        && !possibleAnswers.includes(props.currentGuess.join("").toLowerCase())
+        && !allowedGuesses.includes(props.currentGuess.join("").toLowerCase())
+        ? "input invalid" : "input"}
         type="text"
         name="letter-4"
         minLength={1}
